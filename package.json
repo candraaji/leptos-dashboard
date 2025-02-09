@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "build": "npx tailwindcss -i ./style/input.css -o ./style/output/output.css",
+    "watch": "npx tailwindcss -i ./style/input.css -o ./style/output/output.css --watch"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.1",

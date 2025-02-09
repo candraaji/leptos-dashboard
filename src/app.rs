@@ -1,4 +1,4 @@
-use leptos::{logging::log, *};
+use leptos::{*};
 use leptos_meta::*;
 use leptos_router::*;
 
@@ -11,6 +11,7 @@ pub fn App() -> impl IntoView {
         // injects a stylesheet into the document <head>
         // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/dashboard-app.css"/>
+        <link data-trunk rel="tailwind-css" href="/style/input.css"/>
 
         // sets the document title
         <Title text="Welcome to Leptos"/>
@@ -33,10 +34,6 @@ fn HomePage() -> impl IntoView {
     // Creates a reactive value to update the button
     let (count, set_count) = create_signal(0);
     let on_click = move |_| set_count.update(|count| *count += 1);
-    
-    create_effect(move |_| {
-        log!("Updated count: {}", count.get());
-    });
 
     view! {
         <h1>"Welcome to Leptos!"</h1>
