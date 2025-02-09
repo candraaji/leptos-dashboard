@@ -16,6 +16,16 @@ leptos_meta = { version = "0.6", features = ["nightly"] }
 leptos_actix = { version = "0.6", optional = true }
 leptos_router = { version = "0.6", features = ["nightly"] }
 wasm-bindgen = "=0.2.95"
+serde = "1.0.217"
+surrealdb = "2.1.4"
+uuid = "1.13.1"
+charts-rs = "0.3.19"
+validator = "0.20.0"
+cfg-if = "1.0.0"
+once_cell = "1.20.3"
+chrono = "0.4.39"
+num-format = "0.4.4"
+thiserror = "2.0.11"
 
 [features]
 csr = ["leptos/csr", "leptos_meta/csr", "leptos_router/csr"]
