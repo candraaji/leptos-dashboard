@@ -10,17 +10,17 @@ cfg_if::cfg_if! {
         static DB: Lazy<Surreal<Client>> = Lazy::new(Surreal::init);
 
         pub async fn open_db_connection() {
-            DB.connect::<WS>("127.0.0.1:8000").await;
-            DB.signin(Root, {
+            DB.connect::<Ws>("127.0.0.1:8000").await;
+            DB.signin({ Root {
                 username: "root",
                 password: "candra123"
-            }).await;
+            }}).await;
             DB.use_ns("surreal").use_db("person").await;
         }
 
         pub async fn get_all_persons() -> Option<Vec<Person>> {
             open_db_connection().await;
-            let get_all_persons = DB.query("SELECT * FROM person ORDER BY joined_date DESC").await?;
+            let get_all_persons = DB.query("SELECT * FROM person ORDER BY joined_date DESC").await;
             DB.invalidate().await;
             
             match get_all_persons {
@@ -37,11 +37,11 @@ cfg_if::cfg_if! {
 
         pub async fn add_person(new_person: Person) -> Option<Person> {
             open_db_connection().await;
-            let add_person = DB.create(("person",new_person.uuid.clone())).content(new_person).await?;
+            let add_person = DB.create(("person",new_person.uuid.clone())).content(new_person).await;
             DB.invalidate().await;
             
-            match results {
-                Ok(created_person) => created_person,
+            match add_person {
+                Ok(person) => person,
                 Err(_) => None
             }
         }
