@@ -1,4 +1,4 @@
-use leptos::*;
+use leptos::{logging::log, *};
 use leptos_meta::*;
 use leptos_router::*;
 
@@ -33,6 +33,10 @@ fn HomePage() -> impl IntoView {
     // Creates a reactive value to update the button
     let (count, set_count) = create_signal(0);
     let on_click = move |_| set_count.update(|count| *count += 1);
+    
+    create_effect(move |_| {
+        log!("Updated count: {}", count.get());
+    });
 
     view! {
         <h1>"Welcome to Leptos!"</h1>
