@@ -1,5 +1,7 @@
 pub mod db;
 pub mod models;
+pub mod server_functions;
+
 
 use leptos::{*};
 use leptos_meta::*;
