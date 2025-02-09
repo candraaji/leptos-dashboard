@@ -1,3 +1,4 @@
+pub mod components;
 pub mod db;
 pub mod models;
 pub mod server_functions;
@@ -17,7 +18,7 @@ pub fn App() -> impl IntoView {
         // injects a stylesheet into the document <head>
         // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/dashboard-app.css"/>
-        <link data-trunk rel="tailwind-css" href="/style/input.css"/>
+        <link data-trunk rel="tailwind-css" href="/style/input.css" />
 
         // sets the document title
         <Title text="Welcome"/>
@@ -25,6 +26,7 @@ pub fn App() -> impl IntoView {
         // content for this welcome page
         <Router>
             <main>
+            <Body class="bg-gray-900 overflow-x-hide" />
                 <Routes>
                     <Route path="/" view=move || {
                         view! {

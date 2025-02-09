@@ -1,10 +1,14 @@
 use leptos::*;
 
+use crate::app::components::Header;
+
 #[component]
 pub fn TeamPage() -> impl IntoView {
     view! {
-        <body class="bg-gray-900 overflow-x-hide">
-          <div class="w-full max-w-[64rem] mx-auto items-center justify-center align-center flex flex-col h-screen">Welcome to TeamPage</div>
-        </body>
+        
+      <div class="w-full max-w-[64rem] mx-auto items-center justify-center align-center">
+        <Header/>
+        <div class="mt-20 ml-20 text-white">"This is Team Page"</div></div>
+       
     }
 }
