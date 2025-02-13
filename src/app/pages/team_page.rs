@@ -1,6 +1,6 @@
 use leptos::{ev::MouseEvent, *};
 
-use crate::app::components::Header;
+use crate::app::components::{AddPersonModal,Header};
 
 #[component]
 pub fn TeamPage() -> impl IntoView {
@@ -20,10 +20,17 @@ pub fn TeamPage() -> impl IntoView {
         <Header/>
         <div class="mt-20">
           <div class="text-white flex flex-col w-full mx-auto items-center justify-center z-25">
+
+          <Show when=move || {if_show_modal()}>
+            <AddPersonModal
+              set_if_show_modal
+             />
+          </Show>
+
             <div class="flex flex-row w-full max-w-[52rem]">
               <div class="pr-4 mt-4 text-xl">"Members"</div>
               <hr class="w-full max-w-[48rem] pl-4 pr-4 pt-4 mt-8 mr-4" />
-              <button on:click=on_click clas=ADD_BUTTON_STYLE>
+              <button on:click=on_click class=ADD_BUTTON_STYLE>
               "ADD"</button>
             </div>
           </div>
