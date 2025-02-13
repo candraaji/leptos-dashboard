@@ -14,5 +14,20 @@ pub fn AddPersonModal(
 
     const ADD_BUTTON_STYLE: &str = "mt-10 bg-[#7734e7] px-8 py-2 rounded text-white transition-all duration-1000 ease-in-out hover:bg-[#8448e9]";
 
-    const NO_ERROR_STYLE: &str = "flex flex-col bg-[#222222] border-t-8 border-[#7734e7] px-6 pt-5 h-[29rem] w-full max-w-[36rem] z-50 -mt-2 fixed z-50";
+    const NO_ERROR_STYLE: &str = "flex flex-col bg-[#222222] border-t-8 border-[#7734e7] px-6 pt-5 h-[32rem] w-full max-w-[36rem] z-50 -mt-2 fixed z-50";
+
+    let (error_message, set_error_message) = create_signal(String::new());
+    let (if_error, set_if_error) = create_signal(false);
+    
+
+
+    let (person_name, set_person_name) = create_signal(String::new());
+    let (person_title, set_person_title) = create_signal(String::new());
+    let (person_level, set_person_level) = create_signal(String::new());
+    let (compensation, set_compensation) = create_signal(String::new());
+
+
+
+
+
 }
