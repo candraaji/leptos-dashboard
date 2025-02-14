@@ -36,6 +36,34 @@ pub fn AddPersonModal(
 
     let on_click = move |_| {
 
+        let add_person_request = AddPersonRequest::new(
+            person_name(),
+            person_title(),
+            person_level(),
+            compensation().parse::<i32>().expect("Numbers only")
+        );
+
+        let is_valid = add_person_request.validate();
+
+        match is_valid {
+            Ok(_) => {
+                spawn_local(async move {
+                    let result = add_person(add_person_request).await;
+                    
+                    match result {
+                        Ok(_added_person) => {
+                            set_if_show_modal(false);
+                        },
+                        Err(e) => println!("Error adding: {:?}", e)
+                    };
+                });
+            },
+            Err(_) => {
+                set_if_error(true);
+                set_error_message(String::from("All field reqiuired"))
+            }
+        }
+
     };
 
     view! {
