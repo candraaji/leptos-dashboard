@@ -4,10 +4,14 @@ use leptos::ev::MouseEvent;
 use leptos::*;
 use validator::Validate;
 
+use crate::app::components::{Toast,ToastMessage, ToastMessageType};
+
 
 #[component]
 pub fn AddPersonModal(
-    set_if_show_modal: WriteSignal<bool>
+    set_if_show_modal: WriteSignal<bool>,
+    set_if_show_added: WriteSignal<bool>,
+    set_toast_message: WriteSignal<ToastMessage>
 ) -> impl IntoView {
     const INPUT_STYLE: &str = "w-full h-23 bg-[#333333] pr-4 pl-6 py-4 text-white mt-6 outline-none focus:outline-none focus:pl-7 transition-all duration-1000 ease-in-out";
 
@@ -53,6 +57,10 @@ pub fn AddPersonModal(
                     match result {
                         Ok(_added_person) => {
                             set_if_show_modal(false);
+
+                            set_toast_message(ToastMessage::create(ToastMessageType::NewMemberAdded));
+
+                            set_if_show_added(true);
                         },
                         Err(e) => println!("Error adding: {:?}", e)
                     };
