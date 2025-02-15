@@ -3,6 +3,7 @@ cfg_if::cfg_if! {
 
         use crate::app::models::Person;
         use surrealdb::engine::remote::ws::{Client, Ws};
+        use crate::app::errors::PersonError;
         use surrealdb::opt::auth::Root;
         use surrealdb::{Error, Surreal};
         use once_cell::sync::Lazy;
@@ -10,7 +11,7 @@ cfg_if::cfg_if! {
         static DB: Lazy<Surreal<Client>> = Lazy::new(Surreal::init);
 
         pub async fn open_db_connection() {
-            DB.connect::<Ws>("127.0.0.1:8000").await;
+           let _ = DB.connect::<Ws>("127.0.0.1:8000").await;
             let _ = DB.signin({ Root {
                 username: "root",
                 password: "candra123"
@@ -46,10 +47,10 @@ cfg_if::cfg_if! {
             }
         }
 
-        pub async fn update_person(uuid: String, title: String, level: String, compensation: i32) -> Option<Person> {
+        pub async fn update_person(uuid: String, title: String, level: String, compensation: i32) -> Result<Option<Person>,PersonError> {
             open_db_connection().await;
 
-            let find_person = Result<Option<Person>, Error> = DB.select(("person", &uuid)).await;
+            let find_person:Result<Option<Person>,Error> = DB.select(("person", &uuid)).await;
             
             match find_person {
                 Ok(found) => {
@@ -65,16 +66,16 @@ cfg_if::cfg_if! {
                             )).await;
                             let _ = DB.invalidate().await;
                             match updated_user {
-                                Ok(returned_user) => returned_user,
-                                Err(_) => None
+                                Ok(returned_user) => Ok(returned_user),
+                                Err(_) => Err(PersonError::PersonUpdateFailure)
                             }
                         },
-                        None => None
+                        None => Err(PersonError::PersonUpdateFailure)
                     }
                 },
                 Err(_) => {
                     let _ = DB.invalidate().await;
-                    None
+                    Err(PersonError::PersonUpdateFailure)
                 }
             }
         }

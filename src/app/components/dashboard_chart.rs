@@ -29,7 +29,7 @@ pub fn DashboardChart(persons_data: Vec<Person>) -> impl IntoView {
 
         total_cost += person.compensation;
 
-        if(!data_vec.contains(&person.title)){
+        if !data_vec.contains(&person.title) {
             data_vec.push(person.title);
 
             count_vec.push(1.0);

@@ -52,3 +52,15 @@ impl AddPersonRequest {
         }
     }   
 }
+
+#[derive(Debug, Validate, Deserialize, Serialize, PartialEq, Eq, Clone)]
+pub struct EditPersonRequest {
+    #[validate(length(min = 1, max = 200, message = "id is required"))]
+    pub uuid: String,
+    #[validate(length(min = 1, max = 300, message = "Title must be between 1 and 100 characters"))]
+    pub title: String,
+    #[validate(length(min = 1, max = 500, message = "Level must be between 1 and 100 characters"))]
+    pub level: String,
+    #[validate(range(min = 2000, max = 999999999))]
+    pub compensation: i32,
+}
