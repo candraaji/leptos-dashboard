@@ -6,7 +6,10 @@ pub enum PersonError {
     #[error("member not found")]
     PersonNotFound = 0,
     #[error("failed to update member")]
-    PersonUpdateFailure = 1
+    PersonUpdateFailure = 1,
+    #[error("failed to create member")]
+    PersonCreationFailure = 2
+
 }
 
 pub type ErrorMessage = String;
@@ -23,7 +26,8 @@ impl ResponseErrorTrait for ErrorMessage {
             ),
             PersonError::PersonUpdateFailure => ErrorMessage::from(
                 "failed to update member"
-            )
+            ),
+            PersonError::PersonCreationFailure => ErrorMessage::from("failed to create user")
         }
     }
 }
