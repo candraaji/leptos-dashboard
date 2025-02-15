@@ -8,3 +8,6 @@ pub mod toast;
 pub use toast::Toast;
 pub use toast::ToastMessage;
 pub use toast::ToastMessageType;
+
+pub mod person_row;
+pub use person_row::PersonRow;

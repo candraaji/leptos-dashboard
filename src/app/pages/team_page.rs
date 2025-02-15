@@ -1,6 +1,8 @@
+use std::rc::Rc;
+
 use leptos::{ev::MouseEvent, *};
 
-use crate::app::{components::{AddPersonModal,Header, Toast, ToastMessage}, server_functions::get_persons};
+use crate::app::{components::{AddPersonModal,Header, Toast, ToastMessage, PersonRow}, server_functions::get_persons};
 
 #[component]
 pub fn TeamPage() -> impl IntoView {
@@ -59,7 +61,9 @@ pub fn TeamPage() -> impl IntoView {
                         match data {
                           Ok(persons_data) => {
                             persons_data.iter().map(|each_person| view! {
-                              <div>{&each_person.name}</div>
+                              <PersonRow 
+                                person=Rc::new(each_person.clone())
+                               />
                             }).collect_view()
                           },
                           Err(_) => {
