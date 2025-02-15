@@ -2,8 +2,8 @@ cfg_if::cfg_if! {
     if #[cfg(feature = "ssr")] {
 
         use crate::app::models::Person;
+        use crate::app::errors::{ErrorMessage, PersonError};
         use surrealdb::engine::remote::ws::{Client, Ws};
-        use crate::app::errors::PersonError;
         use surrealdb::opt::auth::Root;
         use surrealdb::{Error, Surreal};
         use once_cell::sync::Lazy;
