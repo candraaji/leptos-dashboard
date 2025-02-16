@@ -9,6 +9,13 @@ const SHOW_ICON_STYLE: &str = "bg-transparent border-2 border-white px-2.5 round
 
 #[component]
 pub fn PersonRow(person: Rc<Person>) -> impl IntoView {
+
+    let (if_show_edit_modal, set_if_show_edit_modal) = create_signal(false);
+
+    let on_show_edit = move |_| {
+        set_if_show_edit_modal(true);
+    };
+
     view! {
         <div class=ROW_STYLE>
             <div class="flex flex-col w-full max-w-[45rem]">
@@ -16,6 +23,12 @@ pub fn PersonRow(person: Rc<Person>) -> impl IntoView {
                 <p class="text-sm text-stone-400">
                 {&person.title}
                 </p>
+            </div>
+            <div class="flex flex-row">
+                <button class="" on:click=on_show_edit>
+                <img src="assets/edit.png" class="w-[35px] hover:w-[38px] transition-all duration-500" />
+                
+                </button>
             </div>
         </div>
     }
