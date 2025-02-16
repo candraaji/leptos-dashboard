@@ -64,3 +64,14 @@ pub struct EditPersonRequest {
     #[validate(range(min = 2000, max = 999999999))]
     pub compensation: i32,
 }
+
+impl EditPersonRequest {
+    pub fn new(uuid: String, title: String, level: String, compensation: i32) -> Self {
+        Self {
+            uuid,
+            title,
+            level,
+            compensation,
+        }
+    }   
+}

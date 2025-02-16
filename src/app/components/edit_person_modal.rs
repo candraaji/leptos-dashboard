@@ -1,3 +1,4 @@
+use leptos::ev::MouseEvent;
 use leptos::*;
 use std::rc::Rc;
 use validator::Validate;
@@ -28,17 +29,115 @@ pub fn EditPersonModal(person:Rc<Person>, set_if_show_modal: WriteSignal<bool>, 
 
     let (person_level, set_person_level) = create_signal(person.level.clone());
 
-    let (compensation, set_person_compensation) = create_signal(format!("{}", person.compensation.clone()));
+    let (compensation, set_compensation) = create_signal(format!("{}", person.compensation.clone()));
 
     let (error_message, set_error_message) = create_signal(String::new());
 
     let (if_error, set_if_error) = create_signal(false);
 
-    
+    let on_close = move |_: MouseEvent| {
+        set_if_show_modal(false);
+    };
 
+    let on_click = move |_: MouseEvent| {
+        let uuid = person.uuid.clone();
+
+        let validated_compensation = compensation().parse::<i32>();
+
+       
+        if let Ok(ok_compensation) = validated_compensation {
+            let edit_person_request =
+                EditPersonRequest::new(uuid, person_title(), person_level(), ok_compensation);
+
+            let is_valid = edit_person_request.validate();
+
+            match is_valid {
+                Ok(_) => {
+                    let _ = spawn_local(async move {
+                        // we call the server function here
+                        let edit_result = edit_person(edit_person_request).await;
+
+                      
+                        match edit_result {
+                            Ok(_edited_person) => {
+                                person_resource.refetch();
+
+                                set_if_show_modal(false);
+
+                                set_toast_message(ToastMessage::create(
+                                    ToastMessageType::MemberUpdated,
+                                ));
+
+                               
+                                set_if_show_toast(true);
+                            }
+                            Err(_e) => {
+                                set_if_error(true);
+                                set_error_message(String::from(
+                                    "Error updating member. Please try again later",
+                                ))
+                            }
+                        };
+                    });
+                }
+                Err(_e) => {
+                    set_if_error(true);
+                    set_error_message(String::from("All fields are required"))
+                }
+            }
+        } else {
+            set_if_error(true);
+            set_error_message(String::from("Compensation should be numeric"))
+        }
+    };
 
     view! {
-        <div></div>
+        <div class="flex flex-col w-full h-full z-50 mx-auto items-center
+        align-center">
+
+        <div class={ move || {
+            if if_error() { ERROR_STYLE }
+            else { NO_ERROR_STYLE }
+        }}>
+
+            <Show when=move || { if_error() }>
+                <p class="text-white bg-red-500 rounded w-full h-12 px-5
+                    py-3 transition-all duration-750 ease-in-out">
+                    { error_message() }
+                </p>
+            </Show>
+            <p class="text-white pt-5 text-4xl mb-10">{person_name}</p>
+
+            <input type="text" placeholder="Title" class=INPUT_STYLE
+                value=person_title
+                on:input=move |event| {
+                    set_person_title(event_target_value(&event));
+                }
+            />
+            <input type="text" placeholder="Level" class=INPUT_STYLE
+                value=person_level
+                on:input=move |event| {
+                    set_person_level(event_target_value(&event));
+                }
+            />
+            <input type="text" placeholder="Compensation" class=INPUT_STYLE
+                value=compensation
+                on:input=move |event| {
+                    set_compensation(event_target_value(&event));
+                }
+            />
+
+            <div class="flex flex-row w-full items-right justify-right mt-3">
+
+                <button on:click=on_close class=CANCEL_BUTTON_STYLE>
+                    "Cancel"
+                </button>
+                <button on:click=on_click class=UPDATE_BUTTON_STYLE>
+                    "Update"
+                </button>
+            </div>
+        </div>
+    </div>
     }
 }
 
