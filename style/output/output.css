@@ -566,6 +566,14 @@ video {
   top: 0px;
 }
 
+.top-20 {
+  top: 5rem;
+}
+
+.top-5 {
+  top: 1.25rem;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -591,6 +599,10 @@ video {
   margin-bottom: 2.5rem;
 }
 
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -611,12 +623,24 @@ video {
   margin-top: 2.5rem;
 }
 
+.mt-14 {
+  margin-top: 3.5rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .mt-20 {
   margin-top: 5rem;
 }
 
 .mt-28 {
   margin-top: 7rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
 }
 
 .mt-4 {
@@ -671,12 +695,20 @@ video {
   height: 2rem;
 }
 
+.h-\[29rem\] {
+  height: 29rem;
+}
+
 .h-\[32rem\] {
   height: 32rem;
 }
 
 .h-full {
   height: 100%;
+}
+
+.min-h-\[32rem\] {
+  min-height: 32rem;
 }
 
 .w-1\/2 {
@@ -689,6 +721,10 @@ video {
 
 .w-96 {
   width: 24rem;
+}
+
+.w-\[35px\] {
+  width: 35px;
 }
 
 .w-\[442px\] {
@@ -799,6 +835,10 @@ video {
   background-color: rgb(34 34 34 / var(--tw-bg-opacity, 1));
 }
 
+.bg-\[\#222222\]\/\[\.06\] {
+  background-color: rgb(34 34 34 / .06);
+}
+
 .bg-\[\#283653\] {
   --tw-bg-opacity: 1;
   background-color: rgb(40 54 83 / var(--tw-bg-opacity, 1));
@@ -834,6 +874,11 @@ video {
   background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
 }
 
+.bg-red-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(153 27 27 / var(--tw-bg-opacity, 1));
+}
+
 .bg-transparent {
   background-color: transparent;
 }
@@ -856,6 +901,11 @@ video {
 .px-20 {
   padding-left: 5rem;
   padding-right: 5rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .px-5 {
@@ -898,8 +948,20 @@ video {
   padding-bottom: 1.25rem;
 }
 
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.pb-12 {
+  padding-bottom: 3rem;
+}
+
 .pl-4 {
   padding-left: 1rem;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
 }
 
 .pl-6 {
@@ -1004,6 +1066,10 @@ video {
   width: 2rem;
 }
 
+.hover\:w-\[38px\]:hover {
+  width: 38px;
+}
+
 .hover\:border-b-2:hover {
   border-bottom-width: 2px;
 }
@@ -1016,6 +1082,11 @@ video {
 .hover\:bg-\[\#8448e9\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(132 72 233 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-red-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
 }
 
 .focus\:pl-7:focus {

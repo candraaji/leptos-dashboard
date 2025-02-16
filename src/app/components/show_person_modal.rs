@@ -15,7 +15,7 @@ const CLOSE_BUTTON_STYLE: &str = "mt-10 bg-[#555555] px-8 py-2 rounded text-whit
 
 const DELETE_BUTTON_STYLE: &str = "mt-10 bg-red-800 px-8 py-2 rounded text-white transition-all duration-1000 ease-in-out hover:bg-red-600";
 
-const MODAL_STYLE: &str = "flex flex-col bg-[#222222] border-t-8 border-[#7734e7] px-6 pt-5 min-h-[32rem] w-full pb-10 max-w-[36rem] z-50 -mt-2 fixed top-20 z-50";
+const MODAL_STYLE: &str = "flex flex-col bg-[#222222] border-t-8 border-[#7734e7] px-6 pt-5 min-h-[32rem] w-full pb-10 max-w-[36rem] z-50 -mt-2 top-20 z-50";
 
 #[component]
 pub fn ShowPersonModal(
@@ -59,7 +59,7 @@ pub fn ShowPersonModal(
 
     view! {
 
-        <div class="flex flex-col w-full h-full z-49 bg-[#222222]/[.06]">
+        <div class="flex flex-col pb-10 px-6 pt-5 min-h-[32rem] w-full max-w-[36rem] fixed -mt-2 top-5 z-50">
 
             <div class="flex flex-col w-full h-full z-50 mx-auto items-center
                 align-center">
@@ -88,7 +88,7 @@ pub fn ShowPersonModal(
                     </div>
 
                     <div class="flex flex-row w-full items-right justify-right
-                        mt-3">
+                        mt-3 mb-5">
                         <button on:click=on_close class=CLOSE_BUTTON_STYLE>
                             "Close"
                         </button>

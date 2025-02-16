@@ -94,7 +94,7 @@ pub fn EditPersonModal(person:Rc<Person>, set_if_show_modal: WriteSignal<bool>, 
     };
 
     view! {
-        <div class="flex flex-col pb-10 px-6 pt-5 min-h-[32rem] w-full max-w-[36rem] z-50 -mt-2 fixed top-20 z-50">
+        <div class="flex flex-col pb-10 px-6 pt-5 min-h-[32rem] w-full max-w-[36rem] fixed -mt-2 top-5 z-50">
 
         <div class={ move || {
             if if_error() { ERROR_STYLE }
@@ -128,7 +128,7 @@ pub fn EditPersonModal(person:Rc<Person>, set_if_show_modal: WriteSignal<bool>, 
                 }
             />
 
-            <div class="flex flex-row w-full items-right justify-right mt-3">
+            <div class="flex flex-row w-full items-right justify-right mt-3 mb-5">
 
                 <button on:click=on_close class=CANCEL_BUTTON_STYLE>
                     "Cancel"
