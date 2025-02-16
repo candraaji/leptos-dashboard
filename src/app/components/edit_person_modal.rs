@@ -30,6 +30,12 @@ pub fn EditPersonModal(person:Rc<Person>, set_if_show_modal: WriteSignal<bool>, 
 
     let (compensation, set_person_compensation) = create_signal(format!("{}", person.compensation.clone()));
 
+    let (error_message, set_error_message) = create_signal(String::new());
+
+    let (if_error, set_if_error) = create_signal(false);
+
+    
+
 
     view! {
         <div></div>
