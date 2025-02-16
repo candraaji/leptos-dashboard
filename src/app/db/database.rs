@@ -2,7 +2,7 @@ cfg_if::cfg_if! {
     if #[cfg(feature = "ssr")] {
 
         use crate::app::models::Person;
-        use crate::app::errors::{ErrorMessage, PersonError};
+        use crate::app::errors::{PersonError};
         use surrealdb::engine::remote::ws::{Client, Ws};
         use surrealdb::opt::auth::Root;
         use surrealdb::{Error, Surreal};
@@ -44,6 +44,19 @@ cfg_if::cfg_if! {
             match add_person {
                 Ok(person) => person,
                 Err(_) => None
+            }
+        }
+
+        pub async fn delete_person(person_uuid: String)
+            -> Result<Option<Person>, PersonError> {
+
+            open_db_connection().await;
+            let delete_results = DB.delete(("person",person_uuid)).await;
+            let _ = DB.invalidate().await;
+
+            match delete_results {
+                Ok(deleted_person) => Ok(deleted_person),
+                Err(_) => Err(PersonError::PersonDeleteFailure)
             }
         }
 

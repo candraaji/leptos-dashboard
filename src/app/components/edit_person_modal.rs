@@ -7,6 +7,7 @@ use crate::app::models::{ EditPersonRequest, Person };
 use crate::app::server_functions::persons::edit_person;
 
 
+
 const INPUT_STYLE: &str = "w-full h-12 bg-[#333333] pr-4 pl-6 py-4 text-white mt-6 outline-none focus:outline-none focus:pl-7 transition-all duration-1000 ease-in-out";
 
 
@@ -19,6 +20,7 @@ const NO_ERROR_STYLE: &str = "flex flex-col bg-[#222222] border-t-8 border-[#773
 
 
 const ERROR_STYLE: &str = "flex flex-col bg-[#222222] border-t-8 border-[#7734e7] px-6 pt-5 h-[32rem] w-full max-w-[36rem] z-50 -mt-2 fixed top-20 z-50";
+
 
 #[component]
 pub fn EditPersonModal(person:Rc<Person>, set_if_show_modal: WriteSignal<bool>, set_if_show_toast: WriteSignal<bool>, set_toast_message: WriteSignal<ToastMessage>, person_resource: Resource<(), Result<Vec<Person>, ServerFnError>>) -> impl IntoView {
@@ -92,8 +94,7 @@ pub fn EditPersonModal(person:Rc<Person>, set_if_show_modal: WriteSignal<bool>, 
     };
 
     view! {
-        <div class="flex flex-col w-full h-full z-50 mx-auto items-center
-        align-center">
+        <div class="flex flex-col pb-10 px-6 pt-5 min-h-[32rem] w-full max-w-[36rem] z-50 -mt-2 fixed top-20 z-50">
 
         <div class={ move || {
             if if_error() { ERROR_STYLE }

@@ -1,6 +1,6 @@
 use crate::app::{
     errors::{ErrorMessage, ResponseErrorTrait},
-    models::{person::Person, AddPersonRequest,  EditPersonRequest},
+    models::{person::{DeletePersonRequest, Person}, AddPersonRequest,  EditPersonRequest},
 };
 use leptos::*;
 use serde::*;
@@ -29,24 +29,24 @@ pub async fn add_person(add_person_request: AddPersonRequest) -> Result<Person, 
     }
 }
 
-// #[server(DeletePerson, "/api")]
-// pub async fn delete_person(
-//     delete_person_request: DeletePersonRequest,
-// ) -> Result<Person, ServerFnError> {
-//     let deleted_results = delete_team_person(delete_person_request.uuid).await;
-//     match deleted_results {
-//         Ok(deleted) => {
-//             if let Some(deleted_person) = deleted {
-//                 Ok(deleted_person)
-//             } else {
-//                 Err(ServerFnError::Response(ErrorMessage::create(
-//                     PersonError::PersonDeleteFailure,
-//                 )))
-//             }
-//         }
-//         Err(person_error) => Err(ServerFnError::Response(ErrorMessage::create(person_error))),
-//     }
-// }
+#[server(DeletePerson, "/api")]
+pub async fn delete_person(
+    delete_person_request: DeletePersonRequest,
+) -> Result<Person, ServerFnError> {
+    let deleted_results = delete_team_person(delete_person_request.uuid).await;
+    match deleted_results {
+        Ok(deleted) => {
+            if let Some(deleted_person) = deleted {
+                Ok(deleted_person)
+            } else {
+                Err(ServerFnError::Response(ErrorMessage::create(
+                    PersonError::PersonDeleteFailure,
+                )))
+            }
+        }
+        Err(person_error) => Err(ServerFnError::Response(ErrorMessage::create(person_error))),
+    }
+}
 
 #[server(EditPerson, "/api")]
 pub async fn edit_person(edit_person_request: EditPersonRequest) -> Result<Person, ServerFnError> {
@@ -112,12 +112,12 @@ cfg_if::cfg_if! {
             database::add_person(new_person).await
         }
 
-        // pub async fn delete_team_person<T>(uuid: T) ->
-        //     Result<Option<Person>,PersonError>
-        //     where T: Into<String> {
+        pub async fn delete_team_person<T>(uuid: T) ->
+            Result<Option<Person>,PersonError>
+            where T: Into<String> {
 
-        //     database::delete_person(uuid.into()).await
-        // }
+            database::delete_person(uuid.into()).await
+        }
 
         pub async fn edit_team_person<T>(uuid: T, title: T, level: T,
             compensation:i32) -> Result<Option<Person>,PersonError>
