@@ -21,6 +21,16 @@ const ERROR_STYLE: &str = "flex flex-col bg-[#222222] border-t-8 border-[#7734e7
 
 #[component]
 pub fn EditPersonModal(person:Rc<Person>, set_if_show_modal: WriteSignal<bool>, set_if_show_toast: WriteSignal<bool>, set_toast_message: WriteSignal<ToastMessage>, person_resource: Resource<(), Result<Vec<Person>, ServerFnError>>) -> impl IntoView {
+
+    let (person_name, set_person_name) = create_signal(person.name.clone());
+
+    let (person_title, set_person_title) = create_signal(person.title.clone());
+
+    let (person_level, set_person_level) = create_signal(person.level.clone());
+
+    let (compensation, set_person_compensation) = create_signal(format!("{}", person.compensation.clone()));
+
+
     view! {
         <div></div>
     }
