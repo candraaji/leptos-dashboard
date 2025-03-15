@@ -95,8 +95,7 @@ cfg_if::cfg_if! {
 
             let mut buffer = Uuid::encode_buffer();
             let uuid = Uuid::new_v4().simple().encode_lower(&mut buffer);
-
-            // getting the current timestamp
+            
             let current_now = Local::now();
             let current_formatted = current_now.to_string();
 
